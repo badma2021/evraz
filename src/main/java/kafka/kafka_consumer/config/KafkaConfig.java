@@ -17,17 +17,12 @@ import java.util.Map;
 
 @Configuration
 public class KafkaConfig {
-    @Value("${spring.kafka.producer.bootstrap-servers}")
+    @Value("${spring.kafka.consumer.bootstrap-servers}")
     private String kafkaServer;
     @Value("${spring.kafka.consumer.group-id}")
     private String kafkaGroupId;
 
     @Bean
-    public synchronized KafkaConsumer kafkaConsumer(){
-        KafkaConsumer kafkaConsumer= new KafkaConsumer(consumerConfigs());
-        return kafkaConsumer;
-    }
-
     public Map<String, Object> consumerConfigs() {
         Map<String, Object> props = new HashMap<>();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,
@@ -39,16 +34,17 @@ public class KafkaConfig {
         props.put(ConsumerConfig.GROUP_ID_CONFIG, kafkaGroupId);
         return props;
     }
-    @Bean
-    public KafkaListenerContainerFactory<?> kafkaListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<Long, String> factory =
-                new ConcurrentKafkaListenerContainerFactory<>();
-        factory.setConsumerFactory(consumerFactory());
-        return factory;
-    }
 
-    @Bean
-    public ConsumerFactory<Long, String> consumerFactory() {
-        return new DefaultKafkaConsumerFactory<>(consumerConfigs());
-    }
+//    @Bean
+//    public KafkaListenerContainerFactory<?> kafkaListenerContainerFactory() {
+//        ConcurrentKafkaListenerContainerFactory<Long, String> factory =
+//                new ConcurrentKafkaListenerContainerFactory<>();
+//        factory.setConsumerFactory(consumerFactory());
+//        return factory;
+//    }
+//
+//    @Bean
+//    public ConsumerFactory<Long, String> consumerFactory() {
+//        return new DefaultKafkaConsumerFactory<>(consumerConfigs());
+//    }
 }
