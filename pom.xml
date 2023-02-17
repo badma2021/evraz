@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>kafka</groupId>
-	<artifactId>kafka_consumer</artifactId>
+	<artifactId>evraz</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>kafka_consumer</name>
 	<description>kafka_consumer</description>

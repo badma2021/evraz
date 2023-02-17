@@ -1,11 +1,38 @@
 server:
-  port: 8082
+  port: 8888
 spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://postgres_db:5432/evraz
+    username: root
+    password: root
+  jackson:
+    deserialization.accept-single-value-as-array: true
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+      cache.use.query_cache: false
+      cache.use_second_level_cache: false
+
   kafka:
+
+    bootstrap-servers: rc1a-b5e65f36lm3an1d5.mdb.yandexcloud.net:9091
     consumer:
-      bootstrap-servers: localhost:9092
-      group-id: group_id
+      group-id: buloshnaya
       auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.LongDeserializer
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      max-poll-records: 1
+      enable-auto-commit: true
+    properties:
+      security.protocol: SASL_SSL
+      sasl.mechanism: SCRAM-SHA-512
+      sasl.jaas.config: org.apache.kafka.common.security.scram.ScramLoginModule required username="9433_reader" password="eUIpgWu0PWTJaTrjhjQD3.hoyhntiK";
+
+      ssl.truststore-password: changeit
+      ssl.truststore-location: certs/CA.pem
+
+
 
