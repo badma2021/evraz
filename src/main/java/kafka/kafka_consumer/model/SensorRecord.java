@@ -20,16 +20,13 @@ public class SensorRecord {
     @Column(name = "id", nullable = false, unique = true)
     @ToString.Exclude
     private Long id;
-
-    public SensorRecord() {
-    }
-
     @ToString.Exclude
     private String createdAt;
     private String place;
-
     @Column(length = 10485760)
     private String value;
+    public SensorRecord() {
+    }
 
     public SensorRecord(String createdAt, String place, String value) {
         this.createdAt = createdAt;
