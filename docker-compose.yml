@@ -19,7 +19,8 @@ services:
       SPRING_DATASOURCE_URL_DB: jdbc:postgresql://postgres_db:5432/evraz
       SPRING_DATASOURCE_USERNAME_DB: root
       SPRING_DATASOURCE_PASSWORD_DB: root
-      JAVA_OPTS: -Djavax.net.ssl.trustStore=/certs/CA.pem -Djavax.net.ssl.trustStorePassword=changeit
+
+
 
     depends_on:
       - postgres_db
