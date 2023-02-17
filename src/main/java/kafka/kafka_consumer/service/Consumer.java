@@ -11,7 +11,7 @@ import java.io.IOException;
 
         private final Logger logger = LoggerFactory.getLogger(Consumer.class);
 
-        @KafkaListener(topics = "zsmk-9433-dev-01", groupId = "group_id")
+        @KafkaListener(topics = "zsmk-9433-dev-01", groupId = "buloshnaya")
         public void consume(String message) throws IOException {
             logger.info(String.format("#### -&gt; Consumed message -&gt; %s", message));
         }
