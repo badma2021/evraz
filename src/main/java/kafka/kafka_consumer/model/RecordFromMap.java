@@ -15,14 +15,12 @@ import java.math.BigDecimal;
 @ToString
 @Table
 public class RecordFromMap {
-        @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
     @ToString.Exclude
     private Long id;
-
     private String sensor;
-
     private String value;
     private String date;
 

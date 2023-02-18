@@ -20,8 +20,6 @@ services:
       SPRING_DATASOURCE_USERNAME_DB: root
       SPRING_DATASOURCE_PASSWORD_DB: root
 
-
-
     depends_on:
       - postgres_db
 
@@ -43,3 +41,10 @@ services:
       - ALLOW_PLAINTEXT_LISTENER=yes
     depends_on:
       - zookeeper
+
+  front:
+    image: 'mar1a/evraz'
+    ports:
+      - '8501:8501'
+    depends_on:
+      - api_service

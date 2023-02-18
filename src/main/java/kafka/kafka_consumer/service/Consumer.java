@@ -23,7 +23,7 @@ public class Consumer {
     ObjectMapper mapper = new ObjectMapper();
     private final Logger logger = LoggerFactory.getLogger(Consumer.class);
     @Autowired
-    RecordFromMapRepository realRecordRepository;
+    SensorRecordService sensorRecordService;
     Map<String, String> map = new HashMap<>();
 
     @KafkaListener(topics = "zsmk-9433-dev-01", groupId = "buloshnaya")
@@ -38,7 +38,7 @@ public class Consumer {
             RecordFromMap realRecord = new RecordFromMap(e.getKey(), e.getValue(), timestamp);
 
             logger.info(String.format("#### -&gt; RecordFromMap -&gt; %s", realRecord.toString()));
-            realRecordRepository.save(realRecord);
+            sensorRecordService.save(realRecord);
 
         });
 
