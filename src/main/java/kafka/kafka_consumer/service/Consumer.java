@@ -25,7 +25,8 @@ public class Consumer {
     private final Logger logger = LoggerFactory.getLogger(Consumer.class);
     @Autowired
     SensorRecordService sensorRecordService;
-    Map<String, String> map = new HashMap<>();
+    Map<String, Object> map = new HashMap<>();
+    AlertCheckerService alertCheckerService=new AlertCheckerService();
 
     @KafkaListener(topics = "zsmk-9433-dev-01", groupId = "buloshnaya")
     public void consume(ConsumerRecord<String, String> message, @Header(KafkaHeaders.RECEIVED_TIMESTAMP) String timestamp) throws JsonProcessingException {
@@ -36,13 +37,14 @@ public class Consumer {
         });
 
         map.entrySet().stream().skip(1).forEach((e) -> {
-            RecordFromMap realRecord = new RecordFromMap(e.getKey(), NumberUtils.parseNumber(e.getValue(), BigDecimal.class), timestamp);
+            RecordFromMap realRecord = new RecordFromMap(e.getKey(), (Double) e.getValue(), timestamp);
 
             logger.info(String.format("#### -&gt; RecordFromMap -&gt; %s", realRecord.toString()));
             sensorRecordService.save(realRecord);
 
         });
-//        if(map.get("SM_Exgauster\\[0:33]")>=map.get("SM_Exgauster\\[0:69]") || map.get("SM_Exgauster\[0:33]").value
+        alertCheckerService.checkalerts(map);
+//       if(map.get("SM_Exgauster\\[0:33]")>=map.get("SM_Exgauster\\[0:69]") || map.get("SM_Exgauster\[0:33]").value
 //            >=map.get("SM_Exgauster\[0:78]").value){}
 
         map.clear();

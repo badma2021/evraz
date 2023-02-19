@@ -21,10 +21,10 @@ public class RecordFromMap {
     @ToString.Exclude
     private Long id;
     private String sensor;
-    private BigDecimal value;
+    private Double value;
     private String date;
 
-    public RecordFromMap(String sensor, BigDecimal value, String date) {
+    public RecordFromMap(String sensor, Double value, String date) {
         this.sensor = sensor;
         this.value = value;
         this.date = date;
