@@ -2,18 +2,10 @@ package kafka.kafka_consumer.config;
 
 import org.apache.kafka.clients.CommonClientConfigs;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.apache.kafka.common.config.SslConfigs;
-import org.apache.kafka.common.serialization.LongSerializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
-import org.springframework.kafka.config.KafkaListenerContainerFactory;
-import org.springframework.kafka.core.ConsumerFactory;
-import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,7 +32,6 @@ public class KafkaConfig {
     @Value("${spring.kafka.properties.ssl.truststore-password}")
     private String propertiesSslKeystorePassword;
 
-
     @Bean
     public Map<String, Object> consumerConfigs() {
         Map<String, Object> props = new HashMap<>();
@@ -52,7 +43,6 @@ public class KafkaConfig {
                 StringSerializer.class);
         props.put(ConsumerConfig.GROUP_ID_CONFIG, kafkaGroupId);
         props.put("sasl.mechanism", propertiesSaslMechanism);
-
         props.put("sasl.jaas.config", propertiesJaasConfig);
         props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, consumerAutOffsetReset);
         props.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, consumerMaxPollRecords);
@@ -60,23 +50,7 @@ public class KafkaConfig {
         props.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, propertiesSecurityProtocol);
         props.put("ssl.truststore.location", propertiesSslKeystoreLocation);
         props.put("ssl.truststore.password", propertiesSslKeystorePassword);
-
-
-
-
         return props;
     }
 
-//    @Bean
-//    public KafkaListenerContainerFactory<?> kafkaListenerContainerFactory() {
-//        ConcurrentKafkaListenerContainerFactory<Long, String> factory =
-//                new ConcurrentKafkaListenerContainerFactory<>();
-//        factory.setConsumerFactory(consumerFactory());
-//        return factory;
-//    }
-//
-//    @Bean
-//    public ConsumerFactory<Long, String> consumerFactory() {
-//        return new DefaultKafkaConsumerFactory<>(consumerConfigs());
-//    }
 }

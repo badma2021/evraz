@@ -10,8 +10,6 @@ import org.springframework.scheduling.annotation.EnableAsync;
 public class KafkaConsumerApplication {
 
 	public static void main(String[] args) {
-
-
 		SpringApplication.run(KafkaConsumerApplication.class, args);
 	}
 
